@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<section class="detail pt-4">
+  <div class="container">
+    <h3 class="text-center pb-4">{{ property.title }}</h3>
+    <div class="row">
+      <div class="col-md-8">
+        <a href="{% url 'detail' property.id %}" ><img src="{{ property.photo_main.url }}" id="main-img" class="mb-3 w-100" height="300px" alt=""></a>
+        <!-- carousel start -->
+        {% comment %} <a href="javascript:void(0)" onclick="changeImg('{{ property.photo_1.url }}')"><img src="{{ property.photo_1.url }}" width="24%" height="120px" class="mb-1" style="margin-left:9px;" alt=""></a>
+        <a href="javascript:void(0)" onclick="changeImg('{{ property.photo_2.url }}')"><img src="{{ property.photo_2.url }}" width="24%" height="120px" class="mb-1" alt=""></a>
+        <a href="javascript:void(0)" onclick="changeImg('{{ property.photo_3.url }}')"><img src="{{ property.photo_3.url }}" width="24%" height="120px" class="mb-1" alt=""></a>
+        <a href="javascript:void(0)" onclick="changeImg('{{ property.photo_4.url }}')"><img src="{{ property.photo_4.url }}" width="24%" height="120px" class="mb-1" alt=""></a>
+        <a href="javascript:void(0)" onclick="changeImg('{{ property.photo_5.url }}')"><img src="{{ property.photo_5.url }}" width="24%" height="120px" class="mb-1" style="margin-left:188px;" alt=""></a>
+        <a href="javascript:void(0)" onclick="changeImg('{{ property.photo_6.url }}')"><img src="{{ property.photo_6.url }}" width="24%" height="120px" class="mb-1" alt=""></a>  {% endcomment %}
+        {% comment %} <!-- <a href="javascript:void(0)" onclick="changeImg('{{ property.photo_3.url }}')"><img src="{{ property.photo_3.url }}" width="24%" class="img-fluid mr-1" alt=""></a> --> {% endcomment %}
+        <!-- carousel end --> 
+        <div class="infor p-3">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6" style="padding-left:85px;">
+                <a href="#"> {{ property.sqft}} sq ft </a>
+                <ul>
+                  <li><span class="fa fa-bed"></span> {{ property.bedrooms}} Beds</li>
+                  <li><span class="fa fa-bath"></span> {{ property.bathrooms}} Baths</li>
+                </ul>
+              </div>
+              <div class="col-md-6 pt-4" style="padding-left:85px;">
+                <ul>
+                  <li><span class="fa fa-map-marker"></span> {{ property.address}} </li>
+                  <li><span class="fa fa-rupee"></span> {{ property.price}} </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center">
+           <img src="{{ property.broker.broker_img.url }}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'detail' property.id %}">{{ property.broker.name }}</h5>
+			{% if user.is_authenticated %}
+            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#enquiryModal">Send Enquiry</a> &nbsp &nbsp
+            <a href="{% url 'email' %}" class="btn btn-primary">Send E-Mail</a>
+			{% else %}
+            <a href="{% url 'login' %}" class="btn btn-primary">Send Enquiry</a>    
+			{% endif %} 
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+</section>
+<!-- Modal -->
+<div class="modal fade" id="enquiryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Send Enquiry</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>    
+      <div class="modal-body">
+        <form method="post" id="enquiry-form">
+          {% csrf_token %}
+		  
+          <input type="hidden" name="added_date" value="{% now 'Y-m-d' %}">
+          <input type="hidden" name="user_id" value="{{ user.id }}">
+          <input type="hidden" name="property_id" value="{{ property.id }}">
+		  
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" id="name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="email" id="email">
+          </div>
+          <div class="form-group">
+            <label for="phone">Mobile</label>
+            <input type="text" class="form-control" name="phone" id="phone">
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" class="form-control" name="subject" id="subject">
+          </div>
+          <div class="form-group"> 
+            <label for="message">Message</label>
+            <textarea class="form-control" name="message" id="message"></textarea>
+          </div>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
+          <button type="submit" class="btn btn-primary float-right" onclick="sendEnquiry()">Submit</button>
+		  <div id="msg"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

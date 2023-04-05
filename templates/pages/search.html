@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="form-12" id="home">
+	<div class="form-12-content">
+		<div class="container">
+			<div class="grid grid-column-2 ">
+				<div class="column2">
+					</div>
+				<div class="column1">
+					
+					
+						<form action="{% url 'search' %}" method="Get">
+							<div class="blog-search form d-flex search-form">
+								<input type="search" class="form-control" placeholder="Enter Title, Location, Property, For Rent/For Sell" name="keywords" >
+								<button type="submit" class="btn search-btn"><span class="fa fa-search"></span></button>
+							</div>
+							
+							<div class="form-top">
+								<select id="sel5">
+									<option>All Bed Rooms</option>
+									<option>Min Bed Rooms</option>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>6</option>
+									<option>7</option>
+								</select>
+								<select id="sel6">
+									<option>All Baths</option>
+									<option>Min Baths</option>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>6</option>
+									<option>7</option>
+								</select>
+								
+							</div>
+							
+							<button type="submit" class="btn">Submit</button>
+						</form>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="grids-4" id="properties">
+    <div id="grids4-block" class="py-5">
+       <div class="container py-md-3">
+			<div class="heading text-center mx-auto">
+      <h3 class="head">Properties For sale</h3>
+      <p class="my-3 head"> Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+        Nulla mollis dapibus nunc, ut rhoncus
+        turpis sodales quis. Integer sit amet mattis quam.</p>
+    </div>
+            <div class="row mt-5 pt-3">
+			
+				{% for property in properties %}
+				    {% if property.is_published %}
+					<div class="grids4-info  col-lg-4 col-md-6">
+                        <a href="{% url 'detail' property.id %}"><img src="{{ property.photo_main.url }}" class="img-fluid" alt=""></a>
+                        <ul class="location-top">
+                            <li class="rent">{{ property.status }}</li>
+                        </ul>
+                        <div class="info-bg">
+                            <h5><a href="{% url 'detail' property.id %}">{{ property.title }}</a></h5>
+                            <p>Rs.450,000 &nbsp; Rs.777 / sqft</p>
+                            <ul>
+                                <li><span class="fa fa-bed"></span> 4 Beds</li>
+                                <li><span class="fa fa-bath"></span> 3 Baths</li>
+                                <li><span class="fa fa-share-square-o"></span> {{ property.sqft }} sq ft</li>
+                            </ul>
+                        </div>
+                    </div>
+					{% endif %}
+				 {% endfor %}
+
+		
+                </div>
+           </div>
+    </div>
+</section>
+
+{% endblock content %}

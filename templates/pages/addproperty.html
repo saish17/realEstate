@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="w3l-contact-breadcrum">
+  <div class="breadcrum-bg py-sm-5 py-4">
+    <div class="container py-lg-3">
+
+      <h2>Add Property</h2>
+      <p><a href="{% url 'index' %}">Home</a></p>
+   
+	 </div>
+  </div>
+</section>
+<!-- Add Property Form -->
+<section class="w3l-contacts-2" id="add_property_form">
+	<div class="contacts-main">
+		
+		<div class="form-41-mian py-5">
+			<div class="container py-md-3">
+				<h3 class="cont-head">Add New Property</h3>
+				<div class="d-grid align-form-map">
+					<div class="form-inner-cont">
+						<form method="post" class="main-input" enctype="multipart/form-data">
+							{% csrf_token %}
+							{{ form.as_p }}
+							<button type="submit" class="btn btn-theme3">Add New Property</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+</section>
+<!-- //Add Property form -->
+
+{% endblock content %}

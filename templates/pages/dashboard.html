@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+<section class="container">
+	<h1 class="mt-5 mb-5 text-center">My Dashboard</h1>
+  <div align='right'>
+    <a href="{% url 'addproperty' %}" class="btn btn-theme3" style='margin-bottom:20px; margin-top:-140px;'>Add New Property</a>
+  </div>
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Enquiries</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Properties</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Property Title</th>
+            <th scope="col">Location</th>
+            <th scope="col">Price</th>
+          <th scope="col">Enquiry Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        {% for enquiry in enquiries %}
+        <tr>
+            <th scope="row">{{ enquiry.id }}</th>
+            <td>{{ enquiry.property.title }}</td>
+            <td>{{ enquiry.property.address }}</td>
+            <td>{{ enquiry.property.price }}</td>
+            <td>{{ enquiry.added_date }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <section class="grids-4" id="properties">
+          <div id="grids4-block" class="py-5">
+            <div class="container py-md-3">
+              <div class="heading text-center mx-auto">
+                <h3 class="head">Properties For sale</h3>
+                <p class="my-3 head"> Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+                                      Nulla mollis dapibus nunc, ut rhoncus
+                                      turpis sodales quis. Integer sit amet mattis quam.</p>
+              </div>
+              <div class="row mt-5 pt-3">
+        
+                {% for property in properties %}
+                  {% if property.is_published %}
+                    <div class="grids4-info  col-lg-4 col-md-6">
+                      <a href="{% url 'detail' property.id %}"><img src="{{ property.photo_main.url }}" class="img-fluid" alt=""></a>
+                        <ul class="location-top">
+                          <li class="rent">{{ property.status }}</li>
+                        </ul>
+                    <div class="info-bg">
+                      <h5><a href="{% url 'detail' property.id %}">{{ property.title }}</a></h5>
+                      <p><span class="fa fa-rupee"></span> {{ property.price }}</p>
+                    <ul>
+                      <li><span class="fa fa-bed"></span> {{ property.bedrooms }} Beds</li>
+                      <li><span class="fa fa-bath"></span> {{ property.bathrooms }} Baths</li>
+                      <li><span class="fa fa-share-square-o"></span> {{ property.sqft }} sq ft</li>
+                    </ul>
+                    </div>
+                    </div>
+                  {% endif %}
+                {% endfor %} 
+              </div>
+            </div>
+          </div>
+        </section>
+    </div>
+  </div>
+</section>
+
+  
+{% endblock content %}
+
+

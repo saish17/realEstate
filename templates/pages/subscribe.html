@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<hr><form method="POST" align='center'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-outline-success" type="submit">Subscribe</button><hr>
+</form>
+{% endblock content %}

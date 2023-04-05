@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="w3l-contact-breadcrum">
+  <div class="breadcrum-bg py-sm-5 py-4">
+    <div class="container py-lg-3">
+
+      <h2>Register</h2>
+      <p><a href="#">Home</a> &nbsp; / &nbsp; Register</p>
+   
+	 </div>
+  </div>
+</section>
+<!-- contact form -->
+<section class="w3l-contacts-2" id="register_form">
+	<div class="contacts-main">
+		
+		<div class="form-41-mian py-5">
+			<div class="container py-md-3 text-center">
+				<h3 class="cont-head">Register Now</h3>
+				<div class="align-form-map mx-auto" style="width=50px;">
+					<div class="form-inner-cont">
+						
+						<form action="" id="register-form" method="post" class="main-input">
+						
+							{% csrf_token %}
+							<div class="top-inputs">
+								<input type="text" placeholder="Username" name="username">
+								<input type="text" name="email" placeholder="Email">
+							</div>
+							<!--input type="text" placeholder="mobile" name="mobile"-->
+							<input type="password" placeholder="password" name="password">
+							
+							<div class="text-center">
+								<button type="submit" style="width=500px;" class="btn btn-theme3" onclick="registerCheck()">Register</button>
+							</div>
+						</form>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="contant11-top-bg py-5">
+			<div class="container py-md-3">
+				<div class="d-grid contact section-gap">
+					<div class="contact-info-left d-grid text-center">
+						<div class="contact-info">
+							<span class="fa fa-location-arrow" aria-hidden="true"></span>
+							<h4>Address</h4>
+							<p>485 Pretty View Lane, Lorem ipsum, London, England</p>
+						</div>
+						<div class="contact-info">
+							<span class="fa fa-phone" aria-hidden="true"></span>
+							<h4>Phone</h4>
+							<p><a href="tel:+44 7834 857829">+44 7834 857829</a></p>
+							<p><a href="tel:+44 987 654 321">+44 987 654 321</a></p>
+						</div>
+						<div class="contact-info">
+							<span class="fa fa-envelope-open-o" aria-hidden="true"></span>
+							<h4>Mail</h4>
+							<p><a href="mailto:mail@example.com" class="email">mail@example.com</a></p>
+							<p><a href="mailto:mail@example.com" class="email">mail@example.com</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</section>
+<!-- //contact form -->
+
+{% endblock content %}

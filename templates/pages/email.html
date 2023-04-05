@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="container" align='center'>
+      <h1>Send Mail</h1><hr>
+      <form method="post">
+        {{form.as_p}}
+        {% csrf_token %}
+        <input type="submit" class="btn btn-primary" name="" value="Send Email"> 
+      </form><hr>
+    </div>
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% macro loop_properties(property) %}
+   {% for property in properties %}
+    <div class="grids4-info  col-lg-4 col-md-6">
+           <a href="{% url 'detail' property.id %}"><img src="{{ property.photo_main.url }}" class="img-fluid" alt=""></a>
+           <ul class="location-top">
+               <li class="rent">{{ property.status }}</li>
+           </ul>
+           <div class="info-bg">
+               <h5><a href="{% url 'detail' property.id %}">{{ property.title }}</a></h5>
+               <p><span class="fa fa-rupee"></span> {{ property.price }}</p>
+               <ul>
+                   <li><span class="fa fa-bed"></span> {{ property.bedrooms }} Beds</li>
+                   <li><span class="fa fa-bath"></span> {{ property.bathrooms }} Baths</li>
+                   <li><span class="fa fa-share-square-o"></span> {{ property.sqft }} sq ft</li>
+               </ul>
+           </div>
+    </div>
+   {% endfor %}
+{% endmacro %}
