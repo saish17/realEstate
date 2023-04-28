@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% load static %}
-
+{% block title %}Search Results{% endblock %}
 {% block content %}
 
 <section class="form-12" id="home">
@@ -20,7 +20,7 @@
 							</div>
 							
 							<div class="form-top">
-								<select id="sel5">
+								<select id="sel5" name="bed">
 									<option>All Bed Rooms</option>
 									<option>Min Bed Rooms</option>
 									<option>1</option>
@@ -31,7 +31,7 @@
 									<option>6</option>
 									<option>7</option>
 								</select>
-								<select id="sel6">
+								<select id="sel6" name="bath">
 									<option>All Baths</option>
 									<option>Min Baths</option>
 									<option>1</option>

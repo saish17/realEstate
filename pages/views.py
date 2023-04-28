@@ -40,13 +40,13 @@ def enquiry(request):
 def dashboard(request):
     
     enquiries = Enquiry.objects.filter(user_id=request.user.id)
-            
-    return render(request, 'pages/dashboard.html', {'enquiries':enquiries});
-    
+    properties = Property.objects.all()   
+    return render(request, 'pages/dashboard.html', {'enquiries':enquiries,'properties':properties});
+  
 def search(request):
 
     properties = Property.objects.filter(title__iexact=request.GET['keywords']) | Property.objects.filter(city__iexact=request.GET['keywords']) | Property.objects.filter(address__iexact=request.GET['keywords']) | Property.objects.filter(status__iexact=request.GET['keywords'])
-
+    
     return render(request, 'pages/search.html', {'properties':properties})
     
 def about(request):

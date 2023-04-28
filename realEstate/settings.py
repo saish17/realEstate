@@ -26,8 +26,10 @@ SECRET_KEY = 'django-insecure-kfwg4af2g4rs&(rj-c53%+d_yg-cyicae!b_47pc+mu&yztef+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['vercel.app']
+ALLOWED_HOSTS = []
 
+SITE_NAME = 'Estate Agent'
+SITE_DESCRIPTION = 'Find your dream home with our real estate property listings.'
 
 # Application definition
 
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'import_export',
 
 ]
 

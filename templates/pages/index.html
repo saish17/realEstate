@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
 {% load static %}
-
+{% block title %}Estate Agent - Homepage{% endblock %}
+{% block meta %}
+ <meta name="desciption" content="Find your dream home with our real estate property listings.">
+{% endblock %}
 {% block content %}
 
 <section class="form-12" id="home">
@@ -203,7 +206,7 @@
 			</div>
 		</section>
 		
-		
+<!-- Property Display Section -->		
 <section class="grids-4" id="properties">
   <div id="grids4-block" class="py-5">
       <div class="container py-md-3">
@@ -238,6 +241,7 @@
       </div>
   </div>
 </section>
+<!-- Property Display Section -->
 
 <section class="w3l-apply-6">
 	<!-- /apply-6-->

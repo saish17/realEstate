@@ -12,4 +12,4 @@ class BrokerAdmin(admin.ModelAdmin):
   search_fields = ('name', 'description', 'email')
   list_per_page = 25
     
-admin.site.register(Broker, BrokerAdmin)
+# admin.site.register(Broker, BrokerAdmin)

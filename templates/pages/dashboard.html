@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% load static %}
-
+{% block title %}Dashboard{% endblock %}
 {% block content %}
 
 
@@ -10,6 +10,12 @@
   <div align='right'>
     <a href="{% url 'addproperty' %}" class="btn btn-theme3" style='margin-bottom:20px; margin-top:-140px;'>Add New Property</a>
   </div>
+  <div align='left'>
+    <a href="{% url 'excel' %}" class="btn btn-theme3" style='margin-bottom:20px; margin-top:-180px;'>Export to Excel</a>
+  </div>
+  <div align='left'>
+    <a href="{% url 'fromexcel' %}" class="btn btn-theme3" style='margin-bottom:20px; margin-top:-110px;'>Import from Excel</a>
+  </div> 
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
       <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Enquiries</a>
@@ -83,7 +89,6 @@
     </div>
   </div>
 </section>
-
   
 {% endblock content %}
 

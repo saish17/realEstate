@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Import File{% endblock %}
+{% block content %}
+    <div class="container" align='center'>
+      <hr>
+      <form method="post" enctype="multipart/form-data">
+        {{form.as_p}}
+        {% csrf_token %}
+        <input style="margin-top: 10px;" type="submit" class="btn btn-primary" name="" value="Import"> 
+      </form>
+      {% if success %}
+       <p style="margin-top: 20px;"><b>Data imported successfully!</b></p>
+      {% endif %}
+      <hr>
+    </div>
+{% endblock content %}

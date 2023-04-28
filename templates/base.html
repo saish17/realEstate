@@ -6,8 +6,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <title>Estate Agent a Real Estate Category Bootstrap Responsive Website Template | Home :: W3layouts</title>
+	{% block meta %}
+	{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
     <!-- web fonts -->
     <link href="//fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Hind&display=swap" rel="stylesheet">
@@ -76,6 +77,9 @@
 			</li>
 			<li class="nav-item mr-0">
             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+			</li>
+			<li class="nav-item mr-0">
+				<a href="{% url 'subscribe' %}" class="btn btn-theme3">Subscribe</a>
 			</li>       
 		{% else %}
 		  <li class="nav-item mr-0">
@@ -84,11 +88,7 @@
 		  <li class="nav-item mr-0">
             <a class="nav-link" href="{% url 'register' %}">Register</a>
           </li>
-		  {% endif %}
-
-		 <li class="nav-item mr-0">
-            <a href="{% url 'subscribe' %}" class="btn btn-theme3">Subscribe</a>
-          </li> 
+		  {% endif %} 
 		
         </ul>
        
@@ -371,7 +371,7 @@
 								setTimeout(function() {
 									//$('#enquiryModal').hide();
 									window.location.href = '';
-								}, 3000);
+								}, 1000);
 								
 							}
 								
