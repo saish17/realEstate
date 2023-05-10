@@ -20,13 +20,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
+
 urlpatterns = [
     path('', include('pages.urls')),
     path('admin/', admin.site.urls),
     path('logout/', RedirectView.as_view(url = '/admin/logout/')),
     path('api/', include('property.urls')),
    
-    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 admin.site.site_header = "RealEstate Admin" 
 admin.site.site_title = "Admin Panel" 

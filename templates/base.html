@@ -99,7 +99,6 @@
 
 {% block content %}{% endblock content %}
 
-
 <!-- grids block 5 -->
  <section class="w3l-footer-29-main" id="footer">
   <div class="footer-29">
@@ -385,9 +384,44 @@
 		function changeImg(img){
 			$('#main-img').attr('src',img);
 		}
-		
-		
 	</script>
+	
+	
+	<script>
+		$("#id_country").change(function () {
+			const url = $("#MemberForm").attr("data-states-url");  // get the url of the `load_cities` view
+			const countryId = $(this).val();  // get the selected state ID from the HTML input
+	
+			$.ajax({                       // initialize an AJAX request
+				url: url,                    // set the url of the request (= /members/ajax/load-cities/ )
+				data: {
+					'country_id': countryId       // GET parameters
+				},
+				success: function (data) {   
+					$("#id_state").html(data); 
+				}
+			});
+	
+		});
+	</script>	
+	<script>
+		$("#id_state").change(function () {
+			const url = $("#MemberForm").attr("data-cities-url");  // get the url of the `load_cities` view
+			const stateId = $(this).val();  // get the selected state ID from the HTML input
+	
+			$.ajax({                       // initialize an AJAX request
+				url: url,                    // set the url of the request (= /members/ajax/load-cities/ )
+				data: {
+					'state_id': stateId       // GET parameters
+				},
+				success: function (data) {   
+					$("#id_city").html(data); 
+				}
+			});
+	
+		});
+	</script>
+	
 
 <style>
 	.error{color:red;}

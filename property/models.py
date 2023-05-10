@@ -7,15 +7,32 @@ from django.core.mail import send_mail
 from pages.models import Subscriber
 from django.conf import settings
 
-# Create your models here.
+class Country(models.Model):
+    name = models.CharField(max_length=100, blank=True, null=True)
+    def __str__(self):
+        return self.name
+
+class State(models.Model):
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True, related_name='states')
+    name = models.CharField(max_length=100, blank=True, null=True)
+    def __str__(self):
+        return self.name
+
+class City(models.Model):
+    state = models.ForeignKey(State, on_delete=models.CASCADE, null=True, related_name='cities')
+    name = models.CharField(max_length=100, blank=True, null=True)
+    def __str__(self):
+        return self.name
+
 class Property(models.Model):
     broker = models.ForeignKey(Broker, on_delete= models.CASCADE)
     title = models.CharField(max_length=30)
     address = models.CharField(max_length=100)
-    city = models.CharField(max_length=30)
-    state = models.CharField(max_length=30)
+    country = models.ForeignKey(Country, on_delete=models.SET_NULL, blank=True, null=True)
+    state = models.ForeignKey(State, on_delete=models.SET_NULL, blank=True, null=True)
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, blank=True, null=True)
     zipcode = models.CharField(max_length=13)
-    description = models.CharField(max_length=100)
+    description = models.CharField(max_length=250)
     price = models.IntegerField()
     bedrooms = models.IntegerField()
     bathrooms = models.IntegerField() 
@@ -36,16 +53,16 @@ class Property(models.Model):
     def __str__(self):
         return self.title
     
-    def save(self, *args, **kwargs):
-        is_new = self.pk is None
-        super().save(*args, **kwargs)
-        if is_new:
-            subscribers = Subscriber.objects.all()
-        for subscriber in subscribers:
-            send_mail(
-                'New properties on our website',
-                f'There is a new property on our website: {self.title}.',
-                "Estate Agent <settings.DEFAULT_FROM_EMAIL>",
-                [subscriber.email],
-                fail_silently=False,
-            )
+    # def save(self, *args, **kwargs):
+    #     is_new = self.pk is None
+    #     super().save(*args, **kwargs)
+    #     if is_new:
+    #         subscribers = Subscriber.objects.all()
+    #     for subscriber in subscribers:
+    #         send_mail(
+    #             'New properties on our website',
+    #             f'There is a new property on our website: {self.title}.',
+    #             "Estate Agent <settings.DEFAULT_FROM_EMAIL>",
+    #             [subscriber.email],
+    #             fail_silently=False,
+    #         )

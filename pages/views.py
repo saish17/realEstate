@@ -42,11 +42,11 @@ def dashboard(request):
     enquiries = Enquiry.objects.filter(user_id=request.user.id)
     properties = Property.objects.all()   
     return render(request, 'pages/dashboard.html', {'enquiries':enquiries,'properties':properties});
-  
+
 def search(request):
 
-    properties = Property.objects.filter(title__iexact=request.GET['keywords']) | Property.objects.filter(city__iexact=request.GET['keywords']) | Property.objects.filter(address__iexact=request.GET['keywords']) | Property.objects.filter(status__iexact=request.GET['keywords'])
-    
+    properties = Property.objects.filter(title__iexact=request.GET['keywords']) | Property.objects.filter(city__state__country__name__iexact=request.GET['keywords']) | Property.objects.filter(address__iexact=request.GET['keywords']) | Property.objects.filter(status__iexact=request.GET['keywords'])
+
     return render(request, 'pages/search.html', {'properties':properties})
     
 def about(request):
@@ -168,7 +168,7 @@ class SubscriberViewSet(viewsets.ModelViewSet):
 
 #add new property by User's end
 from .forms import PropertyForm
-from property.models import Property
+from property.models import Property,State,City
 def addproperty(request):
     if request.method == 'POST':
         form = PropertyForm(request.POST,request.FILES)
@@ -181,3 +181,13 @@ def addproperty(request):
         form = PropertyForm()
 
     return render(request, 'pages/addproperty.html',{'form': form})
+
+def load_states(request):
+    country_id = request.GET.get('country_id')
+    states = State.objects.filter(country_id=country_id).all()
+    return render(request, 'pages/state_dropdown_list_options.html', {'states': states})
+
+def load_cities(request):
+    state_id = request.GET.get('state_id')
+    cities = City.objects.filter(state_id=state_id).all()
+    return render(request, 'pages/city_dropdown_list_options.html', {'cities': cities})

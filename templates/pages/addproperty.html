@@ -23,7 +23,7 @@
 				<h3 class="cont-head">Add New Property</h3>
 				<div class="d-grid align-form-map">
 					<div class="form-inner-cont">
-						<form method="post" class="main-input" enctype="multipart/form-data">
+						<form method="post" class="main-input" id="MemberForm" data-cities-url="{% url 'ajax_load_cities' %}" data-states-url="{% url 'ajax_load_states' %}" enctype="multipart/form-data">
 							{% csrf_token %}
 							{{ form.as_p }}
 							<button type="submit" class="btn btn-theme3">Add New Property</button>

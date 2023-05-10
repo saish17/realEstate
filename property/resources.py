@@ -18,4 +18,4 @@ class PropertyResource(resources.ModelResource):
 
     class Meta:
         model = Property
-        fields = ('id','broker','title', 'address', 'city', 'state', 'zipcode', 'description', 'price', 'bedrooms', 'bathrooms', 'garage', 'sqft', 'plot_size', 'status','photo_main','photo_1', 'photo_2', 'photo_3', 'photo_4', 'photo_5', 'photo_6', 'is_published')
+        fields = ('id','broker','title','address', 'country','state','city', 'zipcode', 'description', 'price', 'bedrooms', 'bathrooms', 'garage', 'sqft', 'plot_size', 'status','photo_main','photo_1', 'photo_2', 'photo_3', 'photo_4', 'photo_5', 'photo_6', 'is_published')

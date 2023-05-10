@@ -1,9 +1,5 @@
 from django.db import models
-
-from datetime import datetime
-
 from property.models import Property
-
 from django.contrib.auth.models import User
 
 

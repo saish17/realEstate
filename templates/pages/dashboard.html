@@ -32,7 +32,7 @@
             <th scope="col">#</th>
             <th scope="col">Property Title</th>
             <th scope="col">Location</th>
-            <th scope="col">Price</th>
+            <th scope="col">Name</th>
           <th scope="col">Enquiry Date</th>
           </tr>
         </thead>
@@ -43,7 +43,7 @@
             <th scope="row">{{ enquiry.id }}</th>
             <td>{{ enquiry.property.title }}</td>
             <td>{{ enquiry.property.address }}</td>
-            <td>{{ enquiry.property.price }}</td>
+            <td>{{ enquiry.name }}</td>
             <td>{{ enquiry.added_date }}</td>
           </tr>
         {% endfor %}
