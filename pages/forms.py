@@ -1,6 +1,6 @@
 from django import forms
 from .models import Subscriber
-from property.models import Property,City,State,Country
+from property.models import Property,City,State
 
 class SubscriberForm(forms.ModelForm):
     class Meta:
@@ -10,7 +10,7 @@ class SubscriberForm(forms.ModelForm):
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
-        fields = ['broker','title','address','country','state','city','zipcode','description','price','bedrooms','bathrooms','garage','sqft','plot_size','status','photo_main']
+        fields = ['broker','title','address','country','state','city','zipcode','description','price','bedrooms','bathrooms','sqft','plot_size','status','photo_main']
         widgets = {
             'photo_main': forms.ClearableFileInput(attrs={'multiple': True}),
             'country': forms.Select(attrs={ 'class': 'form-select' }),

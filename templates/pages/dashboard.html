@@ -5,17 +5,15 @@
 {% block content %}
 
 
-<section class="container">
+
 	<h1 class="mt-5 mb-5 text-center">My Dashboard</h1>
-  <div align='right'>
-    <a href="{% url 'addproperty' %}" class="btn btn-theme3" style='margin-bottom:20px; margin-top:-140px;'>Add New Property</a>
-  </div>
-  <div align='left'>
-    <a href="{% url 'excel' %}" class="btn btn-theme3" style='margin-bottom:20px; margin-top:-180px;'>Export to Excel</a>
-  </div>
-  <div align='left'>
-    <a href="{% url 'fromexcel' %}" class="btn btn-theme3" style='margin-bottom:20px; margin-top:-110px;'>Import from Excel</a>
-  </div> 
+  {% if user.is_authenticated %}
+  {% if user.userprofile.registration_type == 'builder' or user.userprofile.registration_type == 'broker' %}
+    <div class="addproperty" align="right">
+        <a href="{% url 'addproperty' %}" class="btn btn-theme3" style="margin-bottom: 20px; margin-top: -140px;">Add New Property</a>
+    </div>
+    {% endif %}
+  {% endif %}
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
       <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Enquiries</a>
@@ -40,18 +38,18 @@
           
         {% for enquiry in enquiries %}
         <tr>
-            <th scope="row">{{ enquiry.id }}</th>
-            <td>{{ enquiry.property.title }}</td>
-            <td>{{ enquiry.property.address }}</td>
-            <td>{{ enquiry.name }}</td>
-            <td>{{ enquiry.added_date }}</td>
-          </tr>
+          <th scope="row">{{ enquiry.id }}</th>
+          <td>{{ enquiry.property.title }}</td>
+          <td>{{ enquiry.property.address }}</td>
+          <td>{{ enquiry.name }}</td>
+          <td>{{ enquiry.added_date }}</td>
+        </tr>
         {% endfor %}
         </tbody>
       </table>
     </div>
 
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <section class="grids-4" id="properties">
           <div id="grids4-block" class="py-5">
             <div class="container py-md-3">
@@ -70,15 +68,16 @@
                         <ul class="location-top">
                           <li class="rent">{{ property.status }}</li>
                         </ul>
-                    <div class="info-bg">
-                      <h5><a href="{% url 'detail' property.id %}">{{ property.title }}</a></h5>
-                      <p><span class="fa fa-rupee"></span> {{ property.price }}</p>
-                    <ul>
-                      <li><span class="fa fa-bed"></span> {{ property.bedrooms }} Beds</li>
-                      <li><span class="fa fa-bath"></span> {{ property.bathrooms }} Baths</li>
-                      <li><span class="fa fa-share-square-o"></span> {{ property.sqft }} sq ft</li>
-                    </ul>
-                    </div>
+                      <div class="info-bg">
+                        <h5><a href="{% url 'detail' property.id %}">{{ property.title }}</a></h5>
+                        <p style="display: inline-block; margin-right: 10px;"><span class="fa fa-rupee"></span> {{ property.price }}</p>
+                        <p style="display: inline-block;"><span class="fa fa-map-marker"></span> {{ property.city }}</p>
+                        <ul>
+                          <li><span class="fa fa-bed"></span> {{ property.bedrooms }} Beds</li>
+                          <li><span class="fa fa-bath"></span> {{ property.bathrooms }} Baths</li>
+                          <li><span class="fa fa-share-square-o"></span> {{ property.sqft }} sq ft</li>
+                        </ul>
+                      </div>
                     </div>
                   {% endif %}
                 {% endfor %} 
@@ -86,10 +85,57 @@
             </div>
           </div>
         </section>
-    </div>
+      </div>
   </div>
+
+<section class="form-12" id="home">
+	<div class="form-12-content">
+		<div class="container">
+			<div class="grid grid-column-2 ">
+				<div class="column2">
+					</div>
+				<div class="column1">
+          <form id="searchForm" action="{% url 'search' %}" method="GET">
+            <div class="blog-search form d-flex search-form">
+                <input type="search" class="form-control" placeholder="Enter Title, Location, Property, Landmark" name="keywords">
+                <button type="submit" class="btn search-btn"><span class="fa fa-search"></span></button>
+            </div>
+        
+            {% comment %} <div class="form-top">
+                <select id="sel5">
+                    <option value="">All Bed Rooms</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select>
+                <select id="sel6">
+                    <option value="">All Baths</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select>
+            </div> {% endcomment %}
+        
+            <button type="submit" class="btn">Submit</button>
+          </form>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
-  
+<style>
+  .grids4-info {
+    margin-bottom: 20px;
+  }
+</style>  
 {% endblock content %}
 
 

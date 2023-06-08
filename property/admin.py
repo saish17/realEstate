@@ -24,12 +24,17 @@ class BrokerAdmin(ImportExportModelAdmin):
 
 @admin.register(Property)
 class PropertyAdmin(ImportExportModelAdmin):
-    list_display = ('title', 'address', 'city', 'state', 'price')
+    list_display = ('title', 'address', 'city','is_published', 'price')
     list_display_links = ('title',)
     resource_class = PropertyResource
     class Media:
         js = ('assets/js/ajax.js',)
-   
+
+
+
+
+
+
 
 admin.site.register(City)
 admin.site.register(State)

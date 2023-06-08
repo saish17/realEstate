@@ -23,7 +23,19 @@
 				<h3 class="cont-head">Get in touch</h3>
 				<div class="d-grid align-form-map">
 					<div class="form-inner-cont">
-						
+						{% if messages %}
+                            {% for message in messages %}
+                                {% if message.tags == 'error' %}
+                                    <div class="alert alert-danger" role="alert">
+                                {% elif message.tags == 'success' %}
+                                    <div class="alert alert-success" role="alert">
+                                {% else %}
+                                    <div class="alert" role="alert">
+                                {% endif %}
+                                {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
 						<form action="" id="contact-form" method="post" class="main-input">
 						
 							{% csrf_token %}
@@ -31,7 +43,7 @@
 								<input type="text" placeholder="Name" name="fullname" id="w3lName">
 							</div>
 							<div>
-								<input type="text" name="email" placeholder="Email" id="w3lSender">
+								<input type="text" name="email" placeholder="Email" id="w3lSender" value="{{ user.email }}" readonly>
 							</div>
 							<input type="text" placeholder="Mobile" name="mobile">
 							<textarea placeholder="Message" name="message" id="w3lMessage" required=""></textarea>
@@ -40,7 +52,6 @@
 							</div>
 						</form>
 					</div>
-					
 					<div class="contact-right">
 						<img src="{% static 'assets/images/ab-2.jpg' %}" class="img-fluid" alt="">
 					</div>

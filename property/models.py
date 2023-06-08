@@ -24,6 +24,7 @@ class City(models.Model):
     def __str__(self):
         return self.name
 
+
 class Property(models.Model):
     broker = models.ForeignKey(Broker, on_delete= models.CASCADE)
     title = models.CharField(max_length=30)
@@ -50,19 +51,23 @@ class Property(models.Model):
     is_published = models.BooleanField(default=True)
     list_date = models.DateTimeField(default=datetime.now, blank=True)
     
+    
     def __str__(self):
         return self.title
-    
-    # def save(self, *args, **kwargs):
-    #     is_new = self.pk is None
-    #     super().save(*args, **kwargs)
-    #     if is_new:
-    #         subscribers = Subscriber.objects.all()
-    #     for subscriber in subscribers:
-    #         send_mail(
-    #             'New properties on our website',
-    #             f'There is a new property on our website: {self.title}.',
-    #             "Estate Agent <settings.DEFAULT_FROM_EMAIL>",
-    #             [subscriber.email],
-    #             fail_silently=False,
-    #         )
+
+
+    def save(self, *args, **kwargs):
+        is_new = self.pk is None
+        super().save(*args, **kwargs)
+        
+        subscribers = Subscriber.objects.all()
+        
+        if is_new:
+            for subscriber in subscribers:
+                send_mail(
+                    'New properties on our website',
+                    f'There is a new property on our website: {self.title}.',
+                    "Estate Agent <settings.DEFAULT_FROM_EMAIL>",
+                    [subscriber.email],
+                    fail_silently=False,
+                )

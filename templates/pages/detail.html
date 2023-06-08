@@ -8,21 +8,43 @@
     <h3 class="text-center pb-4">{{ property.title }}</h3>
     <div class="row">
       <div class="col-md-8">
-        <a href="{% url 'detail' property.id %}" ><img src="{{ property.photo_main.url }}" id="main-img" class="mb-3 w-100" height="300px" alt=""></a>
-        <!-- carousel start -->
-        {% comment %} <a href="javascript:void(0)" onclick="changeImg('{{ property.photo_1.url }}')"><img src="{{ property.photo_1.url }}" width="24%" height="120px" class="mb-1" style="margin-left:9px;" alt=""></a>
-        <a href="javascript:void(0)" onclick="changeImg('{{ property.photo_2.url }}')"><img src="{{ property.photo_2.url }}" width="24%" height="120px" class="mb-1" alt=""></a>
-        <a href="javascript:void(0)" onclick="changeImg('{{ property.photo_3.url }}')"><img src="{{ property.photo_3.url }}" width="24%" height="120px" class="mb-1" alt=""></a>
-        <a href="javascript:void(0)" onclick="changeImg('{{ property.photo_4.url }}')"><img src="{{ property.photo_4.url }}" width="24%" height="120px" class="mb-1" alt=""></a>
-        <a href="javascript:void(0)" onclick="changeImg('{{ property.photo_5.url }}')"><img src="{{ property.photo_5.url }}" width="24%" height="120px" class="mb-1" style="margin-left:188px;" alt=""></a>
-        <a href="javascript:void(0)" onclick="changeImg('{{ property.photo_6.url }}')"><img src="{{ property.photo_6.url }}" width="24%" height="120px" class="mb-1" alt=""></a>  {% endcomment %}
-        {% comment %} <!-- <a href="javascript:void(0)" onclick="changeImg('{{ property.photo_3.url }}')"><img src="{{ property.photo_3.url }}" width="24%" class="img-fluid mr-1" alt=""></a> --> {% endcomment %}
-        <!-- carousel end --> 
+        <div id="property-carousel" class="slick-carousel">
+          {% if property.photo_main %}
+              <div><img src="{{ property.photo_main.url }}" alt="Main Photo" style="width: 200%; height: 400px;"></div>
+          {% endif %}
+      
+          {% if property.photo_1 %}
+              <div><img src="{{ property.photo_1.url }}" alt="Photo 1" style="width: 200%; height: 400px;"></div>
+          {% endif %}
+      
+          {% if property.photo_2 %}
+              <div><img src="{{ property.photo_2.url }}" alt="Photo 2" style="width: 200%; height: 400px;"></div>
+          {% endif %}
+      
+          {% if property.photo_3 %}
+              <div><img src="{{ property.photo_3.url }}" alt="Photo 3" style="width: 200%; height: 400px;"></div>
+          {% endif %}
+      
+          {% if property.photo_4 %}
+              <div><img src="{{ property.photo_4.url }}" alt="Photo 4" style="width: 200%; height: 400px;"></div>
+          {% endif %}
+      
+          {% if property.photo_5 %}
+              <div><img src="{{ property.photo_5.url }}" alt="Photo 5" style="width: 200%; height: 400px;"></div>
+          {% endif %}
+      
+          {% if property.photo_6 %}
+              <div><img src="{{ property.photo_6.url }}" alt="Photo 6" style="width: 200%; height: 400px;"></div>
+          {% endif %} 
+        </div>
+      
         <div class="infor p-3">
           <div class="container">
             <div class="row">
               <div class="col-md-6" style="padding-left:85px;">
-                <a href="#"> {{ property.sqft}} sq ft </a>
+                <ul>
+                  <li><span class="fa fa-rupee"></span> {{ property.price}} </li>
+                </ul>
                 <ul>
                   <li><span class="fa fa-bed"></span> {{ property.bedrooms}} Beds</li>
                   <li><span class="fa fa-bath"></span> {{ property.bathrooms}} Baths</li>
@@ -30,8 +52,8 @@
               </div>
               <div class="col-md-6 pt-4" style="padding-left:85px;">
                 <ul>
-                  <li><span class="fa fa-map-marker"></span> {{ property.address}} </li>
-                  <li><span class="fa fa-rupee"></span> {{ property.price}} </li>
+                  <li><span class="fa fa-map-marker"></span> {{ property.city}} </li>
+                  <li><span class="fa fa-location-arrow"></span> {{ property.address }}</li>
                 </ul>
               </div>
             </div>
@@ -78,8 +100,7 @@
             <input type="text" class="form-control" name="name" id="name">
           </div>
           <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" name="email" id="email">
+            <input type="hidden" class="form-control" name="email" id="email" value="{{ user.email }}" readonly>
           </div>
           <div class="form-group">
             <label for="phone">Mobile</label>
@@ -105,5 +126,42 @@
     </div>
   </div>
 </div>
-
+<!-- sendMail Form -->
+<div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Send Email</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>    
+      <div class="modal-body">
+        <form method="post" id="email-form">
+          {% csrf_token %}
+		  
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" id="name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="email" id="email">
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" class="form-control" name="subject" id="subject">
+          </div>
+          <div class="form-group"> 
+            <label for="message">Message</label>
+            <textarea class="form-control" name="message" id="message"></textarea>
+          </div>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
+          <button type="submit" class="btn btn-primary float-right" onclick="sendEmail()">Send</button>
+		  <div id="msg"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}

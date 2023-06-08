@@ -25,14 +25,163 @@
 					<div class="form-inner-cont">
 						<form method="post" class="main-input" id="MemberForm" data-cities-url="{% url 'ajax_load_cities' %}" data-states-url="{% url 'ajax_load_states' %}" enctype="multipart/form-data">
 							{% csrf_token %}
-							{{ form.as_p }}
+						  
+							<div class="row">
+							  <div class="col-md-4">
+								<!-- Broker -->
+								<div class="form-group select-field">
+								  <label for="{{ form.broker.id_for_label }}">Broker:</label>
+								  {{ form.broker }}
+								</div>
+							  </div>
+							  <div class="col-md-4">
+								<!-- Title -->
+								<div class="form-group">
+								  <label for="{{ form.title.id_for_label }}">Title:</label>
+								  {{ form.title }}
+								</div>
+							  </div>
+							  <div class="col-md-4">
+								<!-- Address -->
+								<div class="form-group">
+								  <label for="{{ form.address.id_for_label }}">Address:</label>
+								  {{ form.address }}
+								</div>
+							  </div>
+							</div>
+						  
+							<div class="row">
+							  <div class="col-md-4">
+								<!-- Country -->
+								<div class="form-group select-field">
+								  <label for="{{ form.country.id_for_label }}">Country:</label>
+								  {{ form.country }}
+								</div>
+							  </div>
+							  <div class="col-md-4">
+								<!-- State -->
+								<div class="form-group select-field">
+								  <label for="{{ form.state.id_for_label }}">State:</label>
+								  {{ form.state }}
+								</div>
+							  </div>
+							  <div class="col-md-4">
+								<!-- City -->
+								<div class="form-group select-field">
+								  <label for="{{ form.city.id_for_label }}">City:</label>
+								  {{ form.city }}
+								</div>
+							  </div>
+							</div>
+						  
+							<div class="row">
+								<div class="col-md-4">
+								  <!-- Zipcode -->
+								  <div class="form-group">
+									<label for="{{ form.zipcode.id_for_label }}">Zipcode:</label>
+									{{ form.zipcode }}
+								  </div>
+								</div>
+								<div class="col-md-4">
+								  <!-- Description -->
+								  <div class="form-group">
+									<label for="{{ form.description.id_for_label }}">Description:</label>
+									{{ form.description }}
+								  </div>
+								</div>
+								<div class="col-md-4">
+								  <!-- Price -->
+								  <div class="form-group">
+									<label for="{{ form.price.id_for_label }}">Price:</label>
+									{{ form.price }}
+								  </div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+								  <!-- Bedrooms -->
+								  <div class="form-group">
+									<label for="{{ form.bedrooms.id_for_label }}">Bedrooms:</label>
+									{{ form.bedrooms }}
+								  </div>
+								</div>
+								<div class="col-md-4">
+								  <!-- Bathrooms -->
+								  <div class="form-group">
+									<label for="{{ form.bathrooms.id_for_label }}">Bathrooms:</label>
+									{{ form.bathrooms }}
+								  </div>
+								</div>
+								<div class="col-md-4">
+								  <!-- Sqft -->
+								  <div class="form-group">
+									<label for="{{ form.sqft.id_for_label }}">Sqft:</label>
+									{{ form.sqft }}
+								  </div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+								  <!-- plot_size -->
+								  <div class="form-group">
+									<label for="{{ form.plot_size.id_for_label }}">Plot_size:</label>
+									{{ form.plot_size }}
+								  </div>
+								</div>
+								<div class="col-md-4">
+								  <!-- photo_main -->
+								  <div class="form-group">
+									<label for="{{ form.photo_main.id_for_label }}">Photo_main:</label>
+									{{ form.photo_main }}
+								  </div>
+								</div>
+								<div class="col-md-4">
+								  <!-- status -->
+								  <div class="form-group select-field">
+									<label for="{{ form.status.id_for_label }}">Status:</label>
+									{{ form.status }}
+								  </div>
+								</div>
+							</div>
+
+						  
 							<button type="submit" class="btn btn-theme3">Add New Property</button>
 						</form>
+						  	  
+					</div>
+					<div class="contact-right" style="margin-bottom: 35px; margin-top: 35px;">
+						<img src="{% static 'assets/images/ab-2.jpg' %}" class="img-fluid" alt="">
 					</div>
 				</div>
 			</div>
 		</div>
 </section>
 <!-- //Add Property form -->
-
+<style>
+	/* Custom styling for the select fields */
+.select-field select {
+	/* Apply desired styles to the select element */
+	/* For example: */
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	width: 100%;
+  }
+  
+  .select-field label {
+	/* Apply desired styles to the label element */
+	/* For example: */
+	
+  }
+  
+  /* Custom styling for the form group */
+  .form-group {
+	/* Apply desired styles to the form group */
+	/* For example: */
+	margin-bottom: 20px;
+  }
+  
+</style>
 {% endblock content %}

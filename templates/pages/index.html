@@ -14,123 +14,43 @@
 				<div class="column2">
 					</div>
 				<div class="column1">
-					
-					
-						<form action="{% url 'search' %}" method="Get">
-							<div class="blog-search form d-flex search-form">
-								<input type="search" class="form-control" placeholder="Enter Title, Location, Property, Landmark" name="keywords" >
-								<button type="submit" class="btn search-btn"><span class="fa fa-search"></span></button>
-							</div>
-							
-							<div class="form-top">
-								<select id="sel5">
-									<option>All Bed Rooms</option>
-									<option>Min Bed Rooms</option>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
-									<option>6</option>
-									<option>7</option>
-								</select>
-								<select id="sel6">
-									<option>All Baths</option>
-									<option>Min Baths</option>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
-									<option>6</option>
-									<option>7</option>
-								</select>
-								
-							</div>
-							
-							<button type="submit" class="btn">Submit</button>
-						</form>
-					</div>
-				
+          <form id="searchForm" action="{% url 'search' %}" method="GET">
+            <div class="blog-search form d-flex search-form">
+                <input type="search" class="form-control" placeholder="Enter Title, Location, Property, Landmark" name="keywords">
+                <button type="submit" class="btn search-btn"><span class="fa fa-search"></span></button>
+            </div>
+        
+            {% comment %} <div class="form-top">
+                <select id="sel5">
+                    <option value="">All Bed Rooms</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select>
+                <select id="sel6">
+                    <option value="">All Baths</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select>
+            </div> {% endcomment %}
+        
+            <button type="submit" class="btn">Submit</button>
+          </form>
+				</div>
 			</div>
 		</div>
 	</div>
 </section>
 
-<section class="locations-1" id="locations">
-<div class="locations py-5">
- <div class="container py-md-3">
-    <div class="heading text-center mx-auto">
-        <h3 class="head">Popular Locations</h3>
-        <p class="my-3 head "> Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-          Nulla mollis dapibus nunc, ut rhoncus
-          turpis sodales quis. Integer sit amet mattis quam.</p>
-      </div>
-            <div class="row mt-3 pt-5">
-                <div class="col-md-4 col-sm-6">
-                    <div class="box16">
-                        <img class="img-fluid" src="{% static 'assets/images/g1.jpg' %}" alt="">
-                        <div class="box-content">
-                            <h3 class="title">Austin</h3>
-                            <span class="post">2 Listings</span>
-                           
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="box16">
-                        <img class="img-fluid" src="{% static 'assets/images/g2.jpg' %}" alt="">
-                        <div class="box-content">
-                            <h3 class="title">Chicago</h3>
-                            <span class="post">2 Listings</span>
-                           
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 mt-lg-0 pt-lg-0 mt-md-4 pt-md-2">
-                    <div class="box16">
-                        <img class="img-fluid" src="{% static 'assets/images/g3.jpg' %}" alt="">
-                        <div class="box-content">
-                            <h3 class="title">Dallas</h3>
-                            <span class="post">2 Listings</span>
-                           
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 mt-md-4 pt-md-2">
-                    <div class="box16">
-                        <img class="img-fluid" src="{% static 'assets/images/g4.jpg' %}" alt="">
-                        <div class="box-content">
-                            <h3 class="title">Houston</h3>
-                            <span class="post">2 Listings</span>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 mt-md-4 pt-md-2">
-                    <div class="box16">
-                        <img class="img-fluid" src="{% static 'assets/images/g5.jpg' %}" alt="">
-                        <div class="box-content">
-                            <h3 class="title">Jacksonville</h3>
-                            <span class="post">2 Listings</span>
-                           
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 mt-md-4 pt-md-2">
-                    <div class="box16">
-                        <img class="img-fluid" src="{% static 'assets/images/g6.jpg' %}" alt="">
-                        <div class="box-content">
-                            <h3 class="title">New Jersey</h3>
-                            <span class="post">2 Listings</span>
-                           
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-	 </div>
- </section>
 
 <section class="w3l-services2" id="services">
 			<div class="features-with-17_sur py-5">
@@ -209,36 +129,37 @@
 <!-- Property Display Section -->		
 <section class="grids-4" id="properties">
   <div id="grids4-block" class="py-5">
-      <div class="container py-md-3">
+    <div class="container py-md-3">
         <div class="heading text-center mx-auto">
-        <h3 class="head">Properties For sale</h3>
-        <p class="my-3 head"> Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-          Nulla mollis dapibus nunc, ut rhoncus
-          turpis sodales quis. Integer sit amet mattis quam.</p>
+          <h3 class="head">Properties For sale</h3>
+          <p class="my-3 head"> Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+            Nulla mollis dapibus nunc, ut rhoncus
+            turpis sodales quis. Integer sit amet mattis quam.</p>
         </div>
       <div class="row mt-5 pt-3">
         
-      {% for property in properties %}
-        {% if property.is_published %}
-            <div class="grids4-info  col-lg-4 col-md-6">
-                <a href="{% url 'detail' property.id %}"><img src="{{ property.photo_main.url }}" class="img-fluid" alt=""></a>
-                  <ul class="location-top">
-                    <li class="rent">{{ property.status }}</li>
-                  </ul>
-                  <div class="info-bg">
-                      <h5><a href="{% url 'detail' property.id %}">{{ property.title }}</a></h5>
-                      <p><span class="fa fa-rupee"></span> {{ property.price }}</p>
-                    <ul>
-                      <li><span class="fa fa-bed"></span> {{ property.bedrooms }} Beds</li>
-                      <li><span class="fa fa-bath"></span> {{ property.bathrooms }} Baths</li>
-                      <li><span class="fa fa-share-square-o"></span> {{ property.sqft }} sq ft</li>
+        {% for property in properties %}
+          {% if property.is_published %}
+              <div class="grids4-info  col-lg-4 col-md-6">
+                  <a href="{% url 'detail' property.id %}"><img src="{{ property.photo_main.url }}" class="img-fluid" alt=""></a>
+                    <ul class="location-top">
+                      <li class="rent">{{ property.status }}</li>
                     </ul>
-                  </div>
-            </div>
-        {% endif %}
-      {% endfor %} 
+                    <div class="info-bg">
+                        <h5><a href="{% url 'detail' property.id %}">{{ property.title }}</a></h5>
+                        <p style="display: inline-block; margin-right: 10px;"><span class="fa fa-rupee"></span> {{ property.price }}</p>
+                        <p style="display: inline-block;"><span class="fa fa-map-marker"></span> {{ property.city }}</p>
+                      <ul>
+                        <li><span class="fa fa-bed"></span> {{ property.bedrooms }} Beds</li>
+                        <li><span class="fa fa-bath"></span> {{ property.bathrooms }} Baths</li>
+                        <li><span class="fa fa-share-square-o"></span> {{ property.sqft }} sq ft</li>
+                      </ul>
+                    </div>
+              </div>
+          {% endif %}
+        {% endfor %} 
       </div>
-      </div>
+    </div>
   </div>
 </section>
 <!-- Property Display Section -->
@@ -557,6 +478,10 @@
     </div>
     <!-- //specifications -->
 </section>
-
+<style>
+  .grids4-info {
+    margin-bottom: 20px;
+  }
+</style>
 
 {% endblock content %}

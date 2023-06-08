@@ -15,6 +15,9 @@
     <!-- //web fonts -->
     <!-- Template CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/style-starter.css' %}">
+	<!-- Slick Carousel -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+	<!-- Google map api key -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwUfdiYep8zMC2_mFBucS9tTKm4682VMc"></script>
   </head>
   <body>
@@ -78,9 +81,9 @@
 			<li class="nav-item mr-0">
             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
 			</li>
-			<li class="nav-item mr-0">
+			{% comment %} <li class="nav-item mr-0">
 				<a href="{% url 'subscribe' %}" class="btn btn-theme3">Subscribe</a>
-			</li>       
+			</li> {% endcomment %}
 		{% else %}
 		  <li class="nav-item mr-0">
             <a class="nav-link" href="{% url 'login' %}">Login</a>
@@ -100,26 +103,27 @@
 {% block content %}{% endblock content %}
 
 <!-- grids block 5 -->
- <section class="w3l-footer-29-main" id="footer">
-  <div class="footer-29">
-    <div class="grids-forms-1 pb-5">
-<div class="container">
-  <div class="grids-forms">
-      <div class="main-midd">
-          <h4 class="title-head">Newsletter – Get Updates & Latest News</h4>
-          
-      </div>
-      <div class="main-midd-2">
-          <form action="#" method="post" class="rightside-form">
-              <input type="email" name="email" placeholder="Enter your email">
-              <button class="btn" type="submit">Subscribe</button>
-          </form>
-      </div>
-    </div>
-  </div>
-  </div>
-      <div class="container pt-5">
-        
+<section class="w3l-footer-29-main" id="footer">
+   <div class="footer-29">
+	    {% if user.is_authenticated %}
+			<div class="grids-forms-1 pb-5">
+			    <div class="container">
+					<div class="grids-forms">
+						<div class="main-midd">
+							<h4 class="title-head">Newsletter – Get Updates & Latest News</h4>
+						</div>
+						<div class="main-midd-2">
+							<form id="subscribe-form" method="post" class="rightside-form">
+								{% csrf_token %}
+								<input id="email-input" type="email" name="email" value="{{ user.email }}" readonly>
+								<button id="subscribe-btn" class="btn" type="submit">Subscribe</button>
+							</form>
+						</div>
+					</div>
+			    </div>
+			</div>
+	    {% endif %}
+        <div class="container pt-5">
           <div class="d-grid grid-col-4 footer-top-29">
               <div class="footer-list-29 footer-1">
                   <h6 class="footer-title-29">About Us</h6>
@@ -156,11 +160,12 @@
               <div class="footer-list-29 footer-4">
                   <ul>
                       <h6 class="footer-title-29">Quick Links</h6>
-                      <li><a href="index.html">Home</a></li>
-                      <li><a href="about.html">About</a></li>
-                      <li><a href="services.html">Services</a></li>
-                      <li><a href="#"> Blog</a></li>
-                      <li><a href="contact.html">Contact</a></li>
+                      <li><a href="/">Home</a></li>
+                      <li><a href="{% url 'about' %}">About</a></li>
+                      <li><a href="{% url 'contact' %}">Contact</a></li>
+					  {% if user.is_authenticated %}
+					  <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+					  {% endif %}
                   </ul>
               </div>
           </div>
@@ -169,7 +174,7 @@
                
           </div>
       </div>
-  </div>
+    </div>
 
    <!-- move top -->
   <button onclick="topFunction()" id="movetop" title="Go to top">
@@ -214,7 +219,7 @@
  
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js">
   </script>
-	
+
 <!-- Smooth scrolling -->
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
@@ -259,7 +264,6 @@
 		
 		
 		
-		
 		function loginCheck(){
 			$('#login-form').validate({
 				rules:{
@@ -280,9 +284,6 @@
 				}
 			});
 		}
-		
-		
-		
 		
 		function registerCheck(){
 			$('#register-form').validate({
@@ -380,6 +381,7 @@
 				}
 			});
 		}
+
 		
 		function changeImg(img){
 			$('#main-img').attr('src',img);
@@ -421,12 +423,58 @@
 	
 		});
 	</script>
-	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#subscribe-form').submit(function(event) {
+				event.preventDefault();  // Prevent the form from submitting normally
+				var email = $('#email-input').val();  // Get the email value from the input field
+
+				// Send the AJAX request
+				$.ajax({
+					type: 'POST',
+					url: '{% url "subscribe" %}',  // Replace with the actual URL for the subscribe view
+					data: {
+						'email': email,
+						'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+					},
+					success: function(response) {
+						// Handle the successful response
+						if (response.message === 'You have successfully subscribed!') {
+							alert('You have successfully subscribed!');
+							// You can perform additional actions like showing a success message, clearing the input field, etc.
+						} else if (response.message === 'You are already a subscriber.') {
+							alert('You are already a subscriber.');
+							// You can display a different message or perform other actions for existing subscribers.
+						}
+					},
+					error: function(xhr, errmsg, err) {
+						// Handle errors
+						alert('Error occurred while subscribing.');
+						// You can display an error message or perform other error handling actions.
+					}
+				});
+			});
+		});
+	</script>
+    
+	<script>
+		$(document).ready(function() {
+			$('#property-carousel').slick({
+				dots: false,
+				arrows: false,
+				autoplay: true,
+				autoplaySpeed: 1000
+			});
+		});
+	</script> 
+		
 
 <style>
 	.error{color:red;}
 </style>
-	
+<!-- Slick Carousel -->
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>	
 </body>
 
 </html>

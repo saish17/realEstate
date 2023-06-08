@@ -18,7 +18,7 @@ class ContactForm(forms.Form):
     name = forms.CharField(max_length=100)
     email = forms.EmailField()
     subject = forms.CharField(max_length=100)
-    message = forms.CharField(widget=forms.Textarea)
+    message = forms.CharField(max_length=200)
 
 class PropertyForm(forms.Form):
     file = forms.FileField()
